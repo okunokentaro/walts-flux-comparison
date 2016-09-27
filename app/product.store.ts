@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 
-import { AppDispatcher } from './app.dispatcher'
 import { AppStore } from './app.store'
+import { Product } from './product'
 
 @Injectable()
-export class ProductStore extends AppStore {
-  constructor(protected dispatcher: AppDispatcher) {
-    super(dispatcher)
-  }
+export class ProductStore {
+  constructor(protected store: AppStore) {}
 
-  getAllProducts(): Observable<any> {
-    return this.observable
+  getAllProducts(): Observable<Product[]> {
+    return this.store.observable.map((state) => {
+      return state.products
+    })
   }
 }

@@ -1,15 +1,19 @@
-import {Injectable} from '@angular/core'
-import {Observable} from 'rxjs'
-import {State, Store} from 'walts'
+import { Injectable } from '@angular/core'
+import { State, Store } from 'walts'
 
-import {AppDispatcher} from './app.dispatcher'
+import { AppDispatcher } from './app.dispatcher'
+import { ProductInStock, ProductInCart } from './product'
 
 export class AppState extends State {
-
+  products?: ProductInStock[]
+  cart?: {
+    [id: string]: ProductInCart
+  }
 }
 
 const INIT_STATE: AppState = {
-
+  products: [],
+  cart: {}
 }
 
 @Injectable()

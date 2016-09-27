@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core'
 
+import { Product } from './product'
+
 @Component({
   selector: 'fl-products-list',
   template: `
@@ -16,5 +18,5 @@ import { Component, Input } from '@angular/core'
 })
 export class ProductsListComponent {
   @Input() title: any
-  @Input() products: any
+  @Input() products: Product[]
 }

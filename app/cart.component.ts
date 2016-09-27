@@ -1,7 +1,9 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core'
 
+import { ProductInCart } from './product'
+
 @Component({
-  selector: 'fl-cart-container',
+  selector: 'fl-cart',
   template: `
     <div class="cart uk-panel uk-panel-box uk-panel-box-primary">
       <div class="uk-badge uk-margin-bottom">Your Cart</div>
@@ -16,19 +18,31 @@ import { Component, Input, Output, EventEmitter } from '@angular/core'
           </div>
         </div>
       </div>
-      <div class="uk-margin-small-bottom">Total: &euro;{{this.props.total}}</div>
+      <div class="uk-margin-small-bottom">Total: &euro;{{total}}</div>
       <button
         class="uk-button uk-button-large uk-button-success uk-align-right"
-        (click)="this.props.onCheckoutClicked"
-        [attr.disabled]="{hasProducts ? '' : 'disabled'}"
+        (click)="onClick($event)"
+        [attr.disabled]="!hasProducts ? true : null"
       >
         Checkout
       </button>
     </div>
   `
 })
-export class CartContainerComponent {
-  @Input() products: any
-  @Input() total: any
+export class CartComponent {
+  @Input() products: ProductInCart[]
+  @Input() total: string
   @Output() checkoutClicked = new EventEmitter<any>()
+  private hasProducts: boolean
+
+  ngOnChanges() {
+    if (!this.products) {
+      return
+    }
+    this.hasProducts = this.products.length > 0
+  }
+
+  onClick(ev: MouseEvent) {
+    this.checkoutClicked.emit(ev)
+  }
 }

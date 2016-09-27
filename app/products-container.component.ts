@@ -1,15 +1,19 @@
-import {Component} from '@angular/core'
+import { Component } from '@angular/core'
 
-import {ProductStore} from './product.store'
+import { ProductStore } from './product.store'
+import { Product } from './product'
 
 @Component({
   selector: 'fl-products-container',
   template: `
-    <fl-products-list [title]="Flux Shop Demo (Walts)"></fl-products-list>
+    <fl-products-list
+      [title]="'Flux Shop Demo (Walts)'"
+      [products]="products"
+    ></fl-products-list>
   `
 })
 export class ProductsContainerComponent {
-  private products: any
+  private products: Product[]
 
   constructor(private productStore: ProductStore) {}
 

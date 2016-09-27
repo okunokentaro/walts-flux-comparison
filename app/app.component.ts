@@ -1,6 +1,7 @@
-import {Component} from '@angular/core'
+import { Component } from '@angular/core'
 
-import {AppStore} from './app.store'
+import { AppActions } from './app.actions'
+import { AppDispatcher } from './app.dispatcher'
 
 @Component({
   selector: 'fl-app',
@@ -12,5 +13,10 @@ import {AppStore} from './app.store'
   `
 })
 export class AppComponent {
-  constructor(private store: AppStore) {}
+  constructor(private actions: AppActions,
+              private dispatcher: AppDispatcher) {}
+
+  ngOnInit() {
+    this.dispatcher.emit(this.actions.fetchAllProducts())
+  }
 }
